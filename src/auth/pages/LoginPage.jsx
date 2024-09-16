@@ -1,4 +1,6 @@
-import { Grid2, TextField, Typography } from "@mui/material";
+import { Link as RouterLink } from "react-router-dom";
+import { Google } from "@mui/icons-material";
+import { Button, Grid2, Link, TextField, Typography } from "@mui/material";
 
 export const LoginPage = () => {
   return (
@@ -37,6 +39,26 @@ export const LoginPage = () => {
                 placeholder="Your password"
                 fullWidth
               />
+            </Grid2>
+
+            <Grid2 container size={12} spacing={2} sx={{ mb: 2, mt: 2 }}>
+              <Grid2 size={{ xs: 6, md: 12 }}>
+                <Button variant="contained" fullWidth>
+                  Login
+                </Button>
+              </Grid2>
+              <Grid2 size={{ xs: 6, md: 12 }}>
+                <Button variant="contained" fullWidth>
+                  <Google />
+                  <Typography sx={{ ml: 1 }}>Google</Typography>
+                </Button>
+              </Grid2>
+            </Grid2>
+
+            <Grid2 container direction="row" size={12} justifyContent={"end"}>
+              <Link color="inherit" to="/auth/register" component={RouterLink}>
+                Don&apos;t have an account? Register
+              </Link>
             </Grid2>
           </Grid2>
         </form>
