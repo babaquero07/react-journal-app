@@ -2,6 +2,7 @@ import { Link as RouterLink } from "react-router-dom";
 import { Button, Grid2, Link, TextField } from "@mui/material";
 import { AuthLayout } from "../layout/AuthLayout";
 import { useForm } from "../../hooks";
+import { useState } from "react";
 
 const formData = {
   fullName: "",
@@ -22,13 +23,13 @@ const formValidations = {
 };
 
 export const RegisterPage = () => {
+  const [formSubmitted, setFormSubmitted] = useState(false);
+
   const {
-    formState,
     fullName,
     email,
     password,
     onInputChange,
-    isFormValid,
     fullNameValid,
     emailValid,
     passwordValid,
@@ -36,7 +37,8 @@ export const RegisterPage = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log({ fullName, email, password });
+
+    setFormSubmitted(true);
   };
 
   return (
@@ -48,6 +50,8 @@ export const RegisterPage = () => {
               name="fullName"
               value={fullName}
               onChange={onInputChange}
+              error={!!fullNameValid && formSubmitted}
+              helperText={fullNameValid}
               label="Full name"
               type="text"
               placeholder="Full name"
@@ -60,6 +64,8 @@ export const RegisterPage = () => {
               name="email"
               value={email}
               onChange={onInputChange}
+              error={!!emailValid && formSubmitted}
+              helperText={emailValid}
               label="Email"
               type="email"
               placeholder="example@email.com"
@@ -72,6 +78,8 @@ export const RegisterPage = () => {
               name="password"
               value={password}
               onChange={onInputChange}
+              error={!!passwordValid && formSubmitted}
+              helperText={passwordValid}
               label="Password"
               type="password"
               placeholder="Your password"
