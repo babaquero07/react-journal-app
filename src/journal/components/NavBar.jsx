@@ -2,6 +2,8 @@ import { LogoutOutlined, MenuOutlined } from "@mui/icons-material";
 import { AppBar, Grid2, IconButton, Toolbar, Typography } from "@mui/material";
 import PropTypes from "prop-types";
 
+import { logout } from "../../firebase/providers";
+
 export const NavBar = ({ drawerWidth }) => {
   return (
     <AppBar
@@ -35,7 +37,7 @@ export const NavBar = ({ drawerWidth }) => {
             JournalApp
           </Typography>
 
-          <IconButton sx={{ color: "#fff" }}>
+          <IconButton sx={{ color: "#fff" }} onClick={logout}>
             <LogoutOutlined />
           </IconButton>
         </Grid2>
