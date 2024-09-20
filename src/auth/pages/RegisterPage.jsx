@@ -1,9 +1,9 @@
 import { Link as RouterLink } from "react-router-dom";
-import { Button, Grid2, Link, TextField } from "@mui/material";
+import { Alert, Button, Grid2, Link, TextField } from "@mui/material";
 import { AuthLayout } from "../layout/AuthLayout";
 import { useForm } from "../../hooks";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useMemo, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { startCreatingUserWithEmailAndPassword } from "../../store/auth";
 
 const formData = {
@@ -40,6 +40,12 @@ export const RegisterPage = () => {
   } = useForm(formData, formValidations);
 
   const dispatch = useDispatch();
+
+  const { status, errorMessage } = useSelector((state) => state.auth);
+  const isCheckingAuthentication = useMemo(
+    () => status === "checking",
+    [status]
+  );
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -97,8 +103,17 @@ export const RegisterPage = () => {
           </Grid2>
 
           <Grid2 container size={12} spacing={2} sx={{ mb: 2, mt: 2 }}>
+            <Grid2 size={12} display={errorMessage ? "" : "none"}>
+              <Alert severity="error">{errorMessage}</Alert>
+            </Grid2>
+
             <Grid2 size={12}>
-              <Button variant="contained" fullWidth type="submit">
+              <Button
+                variant="contained"
+                fullWidth
+                type="submit"
+                disabled={isCheckingAuthentication}
+              >
                 Create account
               </Button>
             </Grid2>
