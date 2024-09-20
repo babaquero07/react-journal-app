@@ -9,8 +9,30 @@ const formData = {
   password: "",
 };
 
+const formValidations = {
+  fullName: [(value) => value.length >= 1, "The full name field is required."],
+  email: [
+    (value) => value.includes("@") && value.includes("."),
+    "Please enter a valid email address.",
+  ],
+  password: [
+    (value) => value.length >= 6,
+    "Password must be at least 6 characters long.",
+  ],
+};
+
 export const RegisterPage = () => {
-  const { fullName, email, password, onInputChange } = useForm(formData);
+  const {
+    formState,
+    fullName,
+    email,
+    password,
+    onInputChange,
+    isFormValid,
+    fullNameValid,
+    emailValid,
+    passwordValid,
+  } = useForm(formData, formValidations);
 
   const onSubmit = (e) => {
     e.preventDefault();
