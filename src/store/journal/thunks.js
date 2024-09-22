@@ -1,6 +1,12 @@
 import { addDoc, collection } from "@firebase/firestore/lite";
 import { FirebaseDB } from "../../firebase/config";
-import { addNewEmptyNote, savingNewNote, setActiveNote } from "./journalSlice";
+import {
+  addNewEmptyNote,
+  savingNewNote,
+  setActiveNote,
+  setNotes,
+} from "./journalSlice";
+import { loadNotes } from "../../helpers";
 
 export const startNewNote = () => async (dispatch, getState) => {
   // Dispatch the savingNewNote action
@@ -30,4 +36,15 @@ export const startNewNote = () => async (dispatch, getState) => {
   } catch (error) {
     console.error(error);
   }
+};
+
+export const startLoadingNotes = () => async (dispatch, getState) => {
+  const { uid } = getState().auth;
+  if (!uid) throw new Error("User not authenticated");
+
+  // Load the notes
+  const notes = await loadNotes(uid);
+
+  // Dispatch the setNotes action
+  dispatch(setNotes(notes));
 };
