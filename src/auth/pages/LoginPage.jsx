@@ -19,11 +19,13 @@ import {
 import { AuthLayout } from "../layout/AuthLayout";
 import { useMemo } from "react";
 
+const formData = {
+  email: "",
+  password: "",
+};
+
 export const LoginPage = () => {
-  const { email, password, onInputChange, formState } = useForm({
-    email: "",
-    password: "",
-  });
+  const { email, password, onInputChange, formState } = useForm(formData);
 
   const { status, errorMessage } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
