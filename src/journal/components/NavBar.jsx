@@ -3,8 +3,17 @@ import { AppBar, Grid2, IconButton, Toolbar, Typography } from "@mui/material";
 import PropTypes from "prop-types";
 
 import { logout } from "../../firebase/providers";
+import { useDispatch } from "react-redux";
+import { clearNotesOnLogout } from "../../store/journal";
 
 export const NavBar = ({ drawerWidth }) => {
+  const dispatch = useDispatch();
+
+  const onLogout = () => {
+    logout();
+
+    dispatch(clearNotesOnLogout());
+  };
   return (
     <AppBar
       position="fixed"
@@ -37,7 +46,7 @@ export const NavBar = ({ drawerWidth }) => {
             JournalApp
           </Typography>
 
-          <IconButton sx={{ color: "#fff" }} onClick={logout}>
+          <IconButton sx={{ color: "#fff" }} onClick={onLogout}>
             <LogoutOutlined />
           </IconButton>
         </Grid2>
