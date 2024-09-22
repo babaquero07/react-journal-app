@@ -10,7 +10,11 @@ import { ImageGallery } from "../components";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "../../hooks/useForm";
 import { useEffect, useMemo, useRef } from "react";
-import { setActiveNote, startSaveNote } from "../../store/journal";
+import {
+  setActiveNote,
+  startSaveNote,
+  startUploadingFiles,
+} from "../../store/journal";
 import Swal from "sweetalert2";
 
 export const NoteView = () => {
@@ -51,7 +55,7 @@ export const NoteView = () => {
     if (files.length === 0) return;
 
     console.log(files);
-    // dispatch(startUploadingFiles(files));
+    dispatch(startUploadingFiles(files));
   };
 
   return (
