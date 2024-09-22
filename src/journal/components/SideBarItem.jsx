@@ -1,5 +1,8 @@
 import PropTypes from "prop-types";
 
+import { useDispatch } from "react-redux";
+import { setActiveNote } from "../../store/journal";
+
 import {
   Grid2,
   ListItem,
@@ -9,10 +12,24 @@ import {
 } from "@mui/material";
 import { TurnedInNot } from "@mui/icons-material";
 
-export const SideBarItem = ({ id, date, body, title }) => {
+export const SideBarItem = ({ id, date, body, title, imageUrls }) => {
+  const dispatch = useDispatch();
+
+  const onClickNote = () => {
+    dispatch(
+      setActiveNote({
+        id,
+        date,
+        body,
+        title,
+        imageUrls,
+      })
+    );
+  };
+
   return (
     <ListItem disablePadding>
-      <ListItemButton>
+      <ListItemButton onClick={onClickNote}>
         <ListItemIcon>
           <TurnedInNot />
         </ListItemIcon>
@@ -35,4 +52,5 @@ SideBarItem.propTypes = {
   date: PropTypes.number.isRequired,
   body: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
+  imageUrls: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
