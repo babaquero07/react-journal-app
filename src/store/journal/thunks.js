@@ -69,7 +69,17 @@ export const startSaveNote = () => async (dispatch, getState) => {
 
     // Update the note in the store
     dispatch(updateNote(activeNote));
+
+    return {
+      ok: true,
+      msg: "Note saved",
+    };
   } catch (error) {
     console.error(error);
+
+    return {
+      ok: false,
+      msg: "Error saving note",
+    };
   }
 };
