@@ -1,9 +1,17 @@
 import { Fab } from "@mui/material";
 import { JournalLayout } from "../layout/JournalLayout";
-import { NoteView, NothingSelectedView } from "../views";
+import { NoteView } from "../views";
 import { Add } from "@mui/icons-material";
+import { useDispatch } from "react-redux";
+import { startNewNote } from "../../store/journal/thunks";
 
 export const JournalPage = () => {
+  const dispatch = useDispatch();
+
+  const onClickNewNote = () => {
+    dispatch(startNewNote());
+  };
+
   return (
     <JournalLayout>
       {/* <NothingSelectedView /> */}
@@ -12,6 +20,7 @@ export const JournalPage = () => {
 
       {/* Floating Action Button */}
       <Fab
+        onClick={onClickNewNote}
         color="primary"
         sx={{
           position: "fixed",
