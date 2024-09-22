@@ -1,8 +1,11 @@
 import { addDoc, collection } from "@firebase/firestore/lite";
 import { FirebaseDB } from "../../firebase/config";
-import { addNewEmptyNote, setActiveNote } from "./journalSlice";
+import { addNewEmptyNote, savingNewNote, setActiveNote } from "./journalSlice";
 
 export const startNewNote = () => async (dispatch, getState) => {
+  // Dispatch the savingNewNote action
+  dispatch(savingNewNote());
+
   // getState (personalized function Name) allows us to access the current state of the store. Only works with Thunks
   const { uid } = getState().auth;
 
