@@ -1,4 +1,8 @@
-import { SaveOutlined, UploadOutlined } from "@mui/icons-material";
+import {
+  DeleteOutline,
+  SaveOutlined,
+  UploadOutlined,
+} from "@mui/icons-material";
 import {
   Button,
   Grid2,
@@ -12,6 +16,7 @@ import { useForm } from "../../hooks/useForm";
 import { useEffect, useMemo, useRef } from "react";
 import {
   setActiveNote,
+  startDeletingNote,
   startSaveNote,
   startUploadingFiles,
 } from "../../store/journal";
@@ -55,6 +60,21 @@ export const NoteView = () => {
     if (files.length === 0) return;
 
     dispatch(startUploadingFiles(files));
+  };
+
+  const onDelete = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes",
+      cancelButtonText: "No",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(startDeletingNote());
+      }
+    });
   };
 
   return (
@@ -123,6 +143,13 @@ export const NoteView = () => {
           sx={{ border: "none", mb: 1 }}
           minRows={5}
         />
+      </Grid2>
+
+      <Grid2 container justifyContent="end">
+        <Button onClick={onDelete} sx={{ mt: 2 }} color="error">
+          <DeleteOutline />
+          Delete
+        </Button>
       </Grid2>
 
       {/* TODO: Add images gallery */}

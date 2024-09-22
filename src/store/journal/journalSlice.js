@@ -42,7 +42,11 @@ export const journalSlice = createSlice({
 
       state.messageSaved = `${payload.title}, updated successfully`;
     },
-    deleteNoteById: (state, action) => {},
+    deleteNoteById: (state, { payload }) => {
+      state.notes = state.notes.filter((note) => note.id !== payload);
+
+      state.active = null;
+    },
     setPhotosToActiveNote: (state, { payload }) => {
       state.active.imageUrls = [...(state.active.imageUrls || []), ...payload];
 
